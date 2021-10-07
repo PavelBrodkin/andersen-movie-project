@@ -1,7 +1,11 @@
 import React from "react";
 
 // Config
-import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../../helpers/config";
+import {
+  POSTER_SIZE,
+  BACKDROP_SIZE,
+  IMAGE_BASE_URL,
+} from "../../helpers/config";
 
 // Components
 import HeroImage from "../HeroImage/HeroImage";
@@ -16,8 +20,6 @@ import useHomeFetch from "../../hooks/useHomeFetch";
 
 // image
 import NoImage from "../../images/no_image.jpg";
-
-
 
 const Home = () => {
   const { error, movies, searchTerm, loading, setIsLoadingMore } =
