@@ -4,7 +4,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isLoggedIn: false,
-    currentUser: { favorites: {} },
+    currentUser: { favorites: {}, searchTerms: [] },
     users: {},
   },
   reducers: {
@@ -16,7 +16,11 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     signup: (state, { payload }) => {
-      state.users[payload.email] = { ...payload, favorites: {} };
+      state.users[payload.email] = {
+        ...payload,
+        favorites: {},
+        searchTerms: [],
+      };
     },
     signin: (state, { payload }) => {
       const user = state.users[payload.email];
@@ -35,9 +39,14 @@ const authSlice = createSlice({
       delete currentUser.favorites[payload.id];
       users[currentUser.email] = currentUser;
     },
+    setSearchTerms: ({ currentUser, users }, { payload }) => {
+      if (payload !== "" && !currentUser.searchTerms.includes(payload)) {
+        currentUser.searchTerms.push(payload);
+        users[currentUser.email] = currentUser;
+      }
+    },
   },
 });
-
 export default authSlice.reducer;
 export const {
   initUser,
@@ -47,4 +56,5 @@ export const {
   logout,
   setFavorites,
   removeFavorites,
+  setSearchTerms,
 } = authSlice.actions;

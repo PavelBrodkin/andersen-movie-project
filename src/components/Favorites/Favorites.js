@@ -10,9 +10,8 @@ import { IMAGE_BASE_URL, POSTER_SIZE } from "../../helpers/config";
 //  Styles
 import { Wrapper } from "./Favorites.style";
 
-function Favorites(props) {
+const Favorites = () => {
   const { favorites } = useSelector((state) => state.auth.currentUser);
-  console.log(favorites);
 
   return (
     <Wrapper>
@@ -29,6 +28,6 @@ function Favorites(props) {
       </Grid>
     </Wrapper>
   );
-}
+};
 
 export default Favorites;

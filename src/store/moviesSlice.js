@@ -26,11 +26,11 @@ const moviesSlice = createSlice({
     },
     status: null,
     error: null,
-    searchTerm: null,
+    searchTerm: "",
   },
   reducers: {
     inputSearch(state, action) {
-      state.searchTerm = action.payload.trim();
+      state.searchTerm = action.payload;
     },
     setMovies(state, action) {
       state.movies = action.payload;

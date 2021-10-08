@@ -8,6 +8,7 @@ import {
   logout,
   setFavorites,
   removeFavorites,
+  setSearchTerms,
 } from "./authSlice";
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -30,13 +31,15 @@ const authMiddleware = (store) => (next) => (action) => {
     const currentUser = store.getState().auth.currentUser;
     storage("currentUser", currentUser);
   }
-
   if (logout.match(action)) {
     storage("currentUser", {});
     window.location.reload();
   }
-
-  if (setFavorites.match(action) || removeFavorites.match(action)) {
+  if (
+    setFavorites.match(action) ||
+    removeFavorites.match(action) ||
+    setSearchTerms.match(action)
+  ) {
     const currentUser = store.getState().auth.currentUser;
     const users = store.getState().auth.users;
     storage("currentUser", currentUser);

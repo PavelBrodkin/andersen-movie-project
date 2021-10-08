@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Image
@@ -7,29 +7,15 @@ import searhIcon from "../../images/search-icon.svg";
 // styles
 import { Wrapper, Content } from "./SearchBar.style";
 
-// Test
+// BLL
 import { inputSearch } from "../../store/moviesSlice";
 
 const SearchBar = () => {
-  const [state, setState] = useState("");
-  const initial = useRef(true);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (initial.current) {
-      initial.current = false;
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      dispatch(inputSearch(state));
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [dispatch, state]);
+  const searchTerm = useSelector((state) => state.movies.searchTerm);
 
   function onChangeHandler(event) {
-    return setState(event.target.value);
+    dispatch(inputSearch(event.target.value));
   }
 
   return (
@@ -40,9 +26,11 @@ const SearchBar = () => {
           type="text"
           placeholder="Search movie"
           onChange={onChangeHandler}
-          value={state}
+          value={searchTerm}
+          autoComplete="false"
         />
       </Content>
+      e
     </Wrapper>
   );
 };

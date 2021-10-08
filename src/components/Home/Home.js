@@ -31,7 +31,7 @@ const Home = () => {
 
   return (
     <>
-      {movies && !searchTerm && movies.results[0] ? (
+      {!searchTerm && movies?.results[0] ? (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movies.results[0].backdrop_path}`}
           title={movies.results[0].original_title}
@@ -40,22 +40,21 @@ const Home = () => {
       ) : null}
       <SearchBar />
       <Grid header={searchTerm ? "Search result" : "Popular Movies"}>
-        {movies &&
-          movies.results.map((movie) => (
-            <Thumb
-              key={movie.id}
-              clickable={true}
-              image={
-                movie.poster_path
-                  ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path
-                  : NoImage
-              }
-              movieid={movie.id}
-            />
-          ))}
+        {movies?.results.map((movie) => (
+          <Thumb
+            key={movie.id}
+            clickable={true}
+            image={
+              movie.poster_path
+                ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path
+                : NoImage
+            }
+            movieid={movie.id}
+          />
+        ))}
       </Grid>
       {loading ? <Spinner /> : null}
-      {movies && movies.page < movies.total_pages && !loading ? (
+      {movies?.page < movies.total_pages && !loading ? (
         <Button text="Load more" callback={() => setIsLoadingMore(true)} />
       ) : null}
     </>
