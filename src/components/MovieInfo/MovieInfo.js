@@ -5,7 +5,7 @@ import { Wrapper, Content, Text } from "./MovieInfo.style";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../../helpers/config";
 import NoImage from "../../images/no_image.jpg";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
-import { setFavorites, removeFavorites } from "../../store/authSlice";
+import { setFavorites, removeFavorites } from "../../store/Slices/authSlice";
 
 const MovieInfo = ({ movie, directors }) => {
   const [isFavorite, setFavorite] = useState(false);

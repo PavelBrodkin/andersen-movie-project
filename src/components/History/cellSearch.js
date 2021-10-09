@@ -6,7 +6,7 @@ import { Cell } from "./History.style";
 
 const CellSearch = ({ term, callback }) => {
   return (
-    <Link to="/">
+    <Link to="/search">
       <Cell onClick={callback}>{term}</Cell>
     </Link>
   );

@@ -39,7 +39,7 @@ const authSlice = createSlice({
       delete currentUser.favorites[payload.id];
       users[currentUser.email] = currentUser;
     },
-    setSearchTerms: ({ currentUser, users }, { payload }) => {
+    setHistoryOfSearchTerms: ({ currentUser, users }, { payload }) => {
       if (payload !== "" && !currentUser.searchTerms.includes(payload)) {
         currentUser.searchTerms.push(payload);
         users[currentUser.email] = currentUser;
@@ -56,5 +56,5 @@ export const {
   logout,
   setFavorites,
   removeFavorites,
-  setSearchTerms,
+  setHistoryOfSearchTerms,
 } = authSlice.actions;

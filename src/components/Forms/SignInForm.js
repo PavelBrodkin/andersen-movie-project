@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import TextField from "./TextField";
-import { signin } from "../../store/authSlice";
+import { signin } from "../../store/Slices/authSlice";
 import { useHistory } from "react-router-dom";
 
 // Styles

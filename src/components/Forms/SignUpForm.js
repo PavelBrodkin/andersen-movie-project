@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../store/authSlice.js";
+import { signup } from "../../store/Slices/authSlice.js";
 import { Formik, Form } from "formik";
 import TextField from "./TextField.js";
 import * as Yup from "yup";

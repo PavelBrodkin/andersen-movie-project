@@ -1,27 +1,18 @@
 import React from "react";
-
-// Config
-import {
-  POSTER_SIZE,
-  BACKDROP_SIZE,
-  IMAGE_BASE_URL,
-} from "../../helpers/config";
+import { POSTER_SIZE, IMAGE_BASE_URL } from "../../helpers/config";
 
 // Components
-import HeroImage from "../HeroImage/HeroImage";
 import SearchBar from "../SearchBar/SearchBar";
 import Grid from "../Grid/Grid";
 import Thumb from "../Thumb/Thumb";
-import Spinner from "../Spinner/Spinner";
+import { Spinner } from "../Spinner/Spinner.style";
 import Button from "../Button/Button";
-
-// hooks
-import useHomeFetch from "../../hooks/useHomeFetch";
-
-// image
 import NoImage from "../../images/no_image.jpg";
 
-const Home = () => {
+// Hooks
+import useHomeFetch from "../../hooks/useHomeFetch";
+
+const SearchPage = () => {
   const { error, movies, searchTerm, loading, setIsLoadingMore } =
     useHomeFetch();
 
@@ -31,13 +22,6 @@ const Home = () => {
 
   return (
     <>
-      {movies?.results[0] ? (
-        <HeroImage
-          image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movies.results[1].backdrop_path}`}
-          title={movies.results[1].original_title}
-          text={movies.results[1].overview}
-        />
-      ) : null}
       <SearchBar />
       <Grid header={searchTerm ? "Search result" : "Popular Movies"}>
         {movies?.results.map((movie) => (
@@ -61,4 +45,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SearchPage;

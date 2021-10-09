@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { SEARCH_BASE_URL, POPULAR_BASE_URL } from "../helpers/config";
+import {
+  SEARCH_BASE_URL,
+  POPULAR_BASE_URL,
+  GENRE_BASE_URL,
+} from "../../helpers/config";
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
@@ -8,6 +12,18 @@ export const fetchMovies = createAsyncThunk(
       const endpoint = searchTerm
         ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}`
         : `${POPULAR_BASE_URL}&page=${page}`;
+      return await (await fetch(endpoint)).json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchGenres = createAsyncThunk(
+  "movies/fetchGenre",
+  async (_, rejectWithValue) => {
+    try {
+      const endpoint = GENRE_BASE_URL;
       return await (await fetch(endpoint)).json();
     } catch (error) {
       return rejectWithValue(error.message);
@@ -25,13 +41,11 @@ const moviesSlice = createSlice({
       total_results: null,
     },
     status: null,
+    genres: null,
     error: null,
     searchTerm: "",
   },
   reducers: {
-    inputSearch(state, action) {
-      state.searchTerm = action.payload;
-    },
     setMovies(state, action) {
       state.movies = action.payload;
     },
@@ -56,8 +70,11 @@ const moviesSlice = createSlice({
       state.status = "rejected";
       state.error = true;
     },
+    [fetchGenres.fulfilled]: (state, { payload }) => {
+      state.genres = payload.genres;
+    },
   },
 });
 
 export default moviesSlice.reducer;
-export const { inputSearch, setMovies } = moviesSlice.actions;
+export const { setMovies } = moviesSlice.actions;

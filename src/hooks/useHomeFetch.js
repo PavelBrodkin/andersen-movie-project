@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { fetchMovies } from "../store/moviesSlice";
+import { fetchMovies } from "../store/Slices/moviesSlice";
 
 const useHomeFetch = () => {
   const dispatch = useDispatch();
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const { movies, status, error, searchTerm } = useSelector(
-    (state) => state.movies
-  );
+  const { movies, status, error } = useSelector((state) => state.movies);
+  const { searchTerm } = useSelector((state) => state.search);
   const loading = status === "loading";
 
   useEffect(() => {

@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { inputSearch } from "../../store/moviesSlice";
-
-import { logout } from "../../store/authSlice";
+import { mergeSearchState } from "../../store/Slices/searchSlice";
+import { logout } from "../../store/Slices/authSlice";
 
 // Images
 import Logo from "../../images/logo.svg";
@@ -24,7 +23,7 @@ const Header = () => {
   };
 
   const logoClickHandler = () => {
-    dispatch(inputSearch(""));
+    dispatch(mergeSearchState(""));
   };
 
   return (
@@ -35,6 +34,7 @@ const Header = () => {
         </Link>
         {isLoggedIn ? (
           <Column>
+            <SessionName>WELCOME, {userName.toUpperCase()}</SessionName>
             <Link to="/favorites">
               <Button type="button" text="Favorites" />
             </Link>

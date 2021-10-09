@@ -1,5 +1,5 @@
-import { storage } from "../helpers/storage";
-import { initApp } from "./initSlice";
+import { storage } from "../../helpers/storage";
+import { initApp } from "../Slices/initSlice";
 import {
   initUsers,
   initUser,
@@ -8,8 +8,8 @@ import {
   logout,
   setFavorites,
   removeFavorites,
-  setSearchTerms,
-} from "./authSlice";
+  setHistoryOfSearchTerms,
+} from "../Slices/authSlice";
 
 const authMiddleware = (store) => (next) => (action) => {
   // Выполняем следующий стейт перед изменением local storage
@@ -38,7 +38,7 @@ const authMiddleware = (store) => (next) => (action) => {
   if (
     setFavorites.match(action) ||
     removeFavorites.match(action) ||
-    setSearchTerms.match(action)
+    setHistoryOfSearchTerms.match(action)
   ) {
     const currentUser = store.getState().auth.currentUser;
     const users = store.getState().auth.users;
