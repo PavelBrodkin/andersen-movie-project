@@ -9,7 +9,6 @@ const useMovieFetch = (movieId) => {
   );
 
   useEffect(() => {
-    console.log("Fetching One Movie");
     dispatch(fetchMovie(movieId));
   }, [dispatch, movieId]);
 

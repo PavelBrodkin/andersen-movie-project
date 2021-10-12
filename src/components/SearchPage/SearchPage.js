@@ -23,7 +23,7 @@ const SearchPage = () => {
   return (
     <>
       <SearchBar />
-      <Grid header={searchTerm ? "Search result" : "Popular Movies"}>
+      <Grid header={searchTerm ? "Search result" : "Most popular movies"}>
         {movies?.results.map((movie) => (
           <Thumb
             key={movie.id}

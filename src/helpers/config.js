@@ -5,7 +5,7 @@ const API_KEY = "777199739beef6668b936c40945dec30";
 
 const SEARCH_BASE_URL = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=`;
 const POPULAR_BASE_URL = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US`;
-const GENRE_BASE_URL = `${API_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+const GENRE_BASE_URL = `${API_URL}genre/movie/list?api_key=${API_KEY}&language=en-US`;
 
 const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
 

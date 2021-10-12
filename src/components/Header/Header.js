@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+// BLL
+
 import { mergeSearchState } from "../../store/Slices/searchSlice";
 import { logout } from "../../store/Slices/authSlice";
+import { fetchMovies, resetSearchQuery } from "../../store/Slices/moviesSlice";
 
 // Images
 import Logo from "../../images/logo.svg";
@@ -16,14 +20,20 @@ import Button from "../Button/Button";
 const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const userName = useSelector((state) => state.auth.currentUser.name);
+  const userName = useSelector(
+    (state) => state.auth.currentUser.name
+  )?.toUpperCase();
 
   const logOutHandler = () => {
     dispatch(logout());
   };
 
-  const logoClickHandler = () => {
+  // В официальной обучалке Redux они используют async await в подобных случаях, при диспатче асинхронных thunk action (в примерах на codesandbox), но даже у них линтер подсвечивает что такая операция не понесет за собой никакого эффекта - решил оставить как у них. Далее в приложении есть еще подобные моменты.
+
+  const logoClickHandler = async () => {
     dispatch(mergeSearchState(""));
+    dispatch(resetSearchQuery());
+    await dispatch(fetchMovies({ seacrhTerm: "", page: 1 }));
   };
 
   return (
@@ -34,7 +44,7 @@ const Header = () => {
         </Link>
         {isLoggedIn ? (
           <Column>
-            <SessionName>WELCOME, {userName.toUpperCase()}</SessionName>
+            <SessionName>WELCOME, {userName}</SessionName>
             <Link to="/favorites">
               <Button type="button" text="Favorites" />
             </Link>
@@ -57,4 +67,6 @@ const Header = () => {
     </Wrapper>
   );
 };
+
+Header.whyDidYouRender = true;
 export default Header;

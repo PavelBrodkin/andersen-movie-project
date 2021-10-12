@@ -50,10 +50,10 @@ export const Column = styled.div`
 
 export const SessionName = styled.div`
   color: var(--lightGray);
-  font-size: 14px;
+  font-size: 12px;
   width: 100%;
   margin-right: 20px;
   border: 1px solid var(--lightGray);
-  border-radius: 10px;
+  border-radius: 40px;
   padding: 5px 10px;
 `;

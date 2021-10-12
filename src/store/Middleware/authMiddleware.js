@@ -9,6 +9,7 @@ import {
   setFavorites,
   removeFavorites,
   setHistoryOfSearchTerms,
+  setHistoryOfAdvancedSearch,
 } from "../Slices/authSlice";
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -38,7 +39,8 @@ const authMiddleware = (store) => (next) => (action) => {
   if (
     setFavorites.match(action) ||
     removeFavorites.match(action) ||
-    setHistoryOfSearchTerms.match(action)
+    setHistoryOfSearchTerms.match(action) ||
+    setHistoryOfAdvancedSearch.match(action)
   ) {
     const currentUser = store.getState().auth.currentUser;
     const users = store.getState().auth.users;

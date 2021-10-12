@@ -15,17 +15,21 @@ const Favorites = () => {
 
   return (
     <Wrapper>
-      <Grid header={"Favorites"} width="100%">
-        {favorites &&
-          Object.values(favorites).map(({ id, image }) => (
-            <Thumb
-              key={id}
-              clickable={true}
-              image={image ? IMAGE_BASE_URL + POSTER_SIZE + image : NoImage}
-              movieid={id}
-            />
-          ))}
-      </Grid>
+      {Object.keys(favorites).length ? (
+        <Grid header={"Favorites"} width="100%">
+          {favorites &&
+            Object.values(favorites).map(({ id, image }) => (
+              <Thumb
+                key={id}
+                clickable={true}
+                image={image ? IMAGE_BASE_URL + POSTER_SIZE + image : NoImage}
+                movieid={id}
+              />
+            ))}
+        </Grid>
+      ) : (
+        <h1>You haven't added anything to your favorites yet</h1>
+      )}
     </Wrapper>
   );
 };

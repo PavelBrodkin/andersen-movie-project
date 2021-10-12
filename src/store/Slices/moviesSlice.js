@@ -7,11 +7,13 @@ import {
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async ({ searchTerm, page }, rejectWithValue) => {
+  async ({ searchTerm, page, genres }, rejectWithValue) => {
     try {
       const endpoint = searchTerm
         ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}`
-        : `${POPULAR_BASE_URL}&page=${page}`;
+        : `${POPULAR_BASE_URL}&page=${page}${
+            genres ? `&with_genres=${genres}` : ""
+          }`;
       return await (await fetch(endpoint)).json();
     } catch (error) {
       return rejectWithValue(error.message);
@@ -43,11 +45,22 @@ const moviesSlice = createSlice({
     status: null,
     genres: null,
     error: null,
-    searchTerm: "",
+    advancedSearchQuery: [],
   },
   reducers: {
-    setMovies(state, action) {
-      state.movies = action.payload;
+    setMovies(state, { payload }) {
+      state.movies = payload;
+    },
+    setSearchQuery(state, { payload }) {
+      state.advancedSearchQuery.push(payload);
+    },
+    removeSearchQuery(state, { payload }) {
+      state.advancedSearchQuery = state.advancedSearchQuery.filter(
+        (query) => query !== payload
+      );
+    },
+    resetSearchQuery(state) {
+      state.advancedSearchQuery = [];
     },
   },
   extraReducers: {
@@ -55,14 +68,14 @@ const moviesSlice = createSlice({
       state.status = "loading";
       state.error = false;
     },
-    [fetchMovies.fulfilled]: (state, action) => {
-      const { page } = action.payload;
+    [fetchMovies.fulfilled]: (state, { payload }) => {
+      const { page } = payload;
       state.movies = {
-        ...action.payload,
+        ...payload,
         results:
           page > 1
-            ? [...state.movies.results, ...action.payload.results]
-            : [...action.payload.results],
+            ? [...state.movies.results, ...payload.results]
+            : [...payload.results],
       };
       state.status = "resolved";
     },
@@ -71,10 +84,18 @@ const moviesSlice = createSlice({
       state.error = true;
     },
     [fetchGenres.fulfilled]: (state, { payload }) => {
-      state.genres = payload.genres;
+      state.genres = payload.genres.reduce((acc, genre) => {
+        acc[genre.id] = genre;
+        return acc;
+      }, {});
     },
   },
 });
 
 export default moviesSlice.reducer;
-export const { setMovies } = moviesSlice.actions;
+export const {
+  setMovies,
+  setSearchQuery,
+  removeSearchQuery,
+  resetSearchQuery,
+} = moviesSlice.actions;

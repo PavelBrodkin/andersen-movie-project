@@ -9,4 +9,10 @@ export const Wrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 20px 0;
+
+  h1 {
+    color: var(--medGray);
+    width: 100%;
+    text-align: center;
+  }
 `;

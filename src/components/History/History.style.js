@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   align-self: center;
   justify-content: space-between;
   align-items: center;
@@ -12,6 +13,10 @@ export const Wrapper = styled.div`
 
   a {
     text-decoration: none;
+    color: var(--medGray);
+  }
+
+  h1 {
     color: var(--medGray);
   }
 `;
@@ -30,3 +35,5 @@ export const Cell = styled.div`
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
   }
 `;
+
+

@@ -39,7 +39,7 @@ const Home = () => {
         />
       ) : null}
       <SearchBar />
-      <Grid header={searchTerm ? "Search result" : "Popular Movies"}>
+      <Grid header={searchTerm ? "Search result" : "The best for today"}>
         {movies?.results.map((movie) => (
           <Thumb
             key={movie.id}

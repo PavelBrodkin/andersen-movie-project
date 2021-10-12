@@ -9,29 +9,23 @@ const useInitFetch = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
 
-  // initial fetch and search
+  // search fetch
 
   useEffect(() => {
     if (searchTerm) {
       dispatch(fetchMovies({ searchTerm: searchTerm.trim(), page: 1 }));
-      console.log("Fetching Search");
       if (isLoggedIn) {
         dispatch(setHistoryOfSearchTerms(searchTerm.trim()));
-        console.log("save search terms");
       }
-    } else {
-      dispatch(fetchMovies({ searchTerm: "", page: 1 }));
-      console.log("Fetching Movies");
     }
   }, [dispatch, searchTerm, isLoggedIn]);
 
-  useEffect(() => {
-    console.log("fetch genres");
-    dispatch(fetchGenres());
-  }, [dispatch]);
+  // initial fetch
 
   useEffect(() => {
     dispatch(initApp());
+    dispatch(fetchGenres());
+    dispatch(fetchMovies({ searchTerm: "", page: 1 }));
   }, [dispatch]);
 };
 
