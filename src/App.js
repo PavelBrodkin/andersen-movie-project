@@ -14,6 +14,7 @@ import History from "./components/History/History";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SignUpForm from "./components/Forms/SignUpForm";
 import SignInForm from "./components/Forms/SignInForm";
+import SearchPage from "./components/SearchPage/SearchPage";
 
 // Hooks
 import useInitFetch from "./hooks/useInitFetch";
@@ -28,6 +29,7 @@ const App = () => {
         <Route exact path="/" component={Home} />
         <Route path="/signup" component={SignUpForm} />
         <Route path="/signin" component={SignInForm} />
+        <Route path="/search" component={SearchPage} />
         <ProtectedRoute path="/favorites" component={Favorites} />
         <ProtectedRoute path="/history" component={History} />
         <Route path="/movie/:movieId" component={Movie} />
@@ -39,3 +41,4 @@ const App = () => {
 };
 
 export default App;
+

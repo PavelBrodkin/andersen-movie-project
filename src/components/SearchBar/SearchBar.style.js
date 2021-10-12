@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100px;
   background: var(--darkGray);
   padding: 0 20px;
 `;
+
 export const Content = styled.div`
   position: relative;
   max-width: 1280px;
@@ -31,7 +34,7 @@ export const Content = styled.div`
     margin: 8px 0;
     padding: 0 0 0 60px;
     border: 0;
-    width: 95%;
+    width: 100%;
     background: transparent;
     height: 40px;
     color: var(--white);
@@ -40,4 +43,49 @@ export const Content = styled.div`
       outline: none;
     }
   }
+`;
+
+export const SuggestWrapper = styled.div`
+  position: absolute;
+  z-index: 1000;
+  top: 100%;
+  width: 100%;
+  padding: 20px 60px 40px 60px;
+  background-color: var(--darkGray);
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+
+  a {
+    color: var(--white);
+    text-decoration: none;
+  }
+`;
+
+export const SuggestItem = styled.div`
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  font-size: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+
+  :hover {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  }
+`;
+
+export const AdvancedSearchToggle = styled.div`
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  color: ${({ styleProps }) => (styleProps ? "#1c1c1c" : "#fff")};
+  font-weight: 600;
+  background-color: ${({ styleProps }) => (styleProps ? "#eee" : "#none")};
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--lightGray);
+  border-radius: 40px;
+  padding: 5px 10px;
+  transition: all linear 0.3s;
 `;

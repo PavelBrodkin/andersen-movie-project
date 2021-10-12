@@ -1,25 +1,42 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Thumb from "../Thumb/Thumb";
 import { Wrapper, Content, Text } from "./MovieInfo.style";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../../helpers/config";
 import NoImage from "../../images/no_image.jpg";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { setFavorites, removeFavorites } from "../../store/Slices/authSlice";
 
 const MovieInfo = ({ movie, directors }) => {
-  const [favorite, setFavorite] = useState(false);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const [isFavorite, setFavorite] = useState(false);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const favorites = useSelector((state) => state.auth.currentUser.favorites);
+  const dispatch = useDispatch();
 
   const toggleFavorite = () => {
     setFavorite((prev) => !prev);
+    !isFavorite
+      ? dispatch(
+          setFavorites({ id: movie.id, image: movie.poster_path || NoImage })
+        )
+      : dispatch(removeFavorites({ id: movie.id }));
   };
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return;
+    }
+    if (favorites[movie?.id]) {
+      setFavorite(true);
+    }
+  }, [favorites, movie?.id, isLoggedIn]);
+
   return (
-    <Wrapper backdrop={movie && movie.backdrop_path}>
+    <Wrapper backdrop={movie?.backdrop_path}>
       <Content>
         <Thumb
           image={
-            movie && movie.poster_path
+            movie?.poster_path
               ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
               : NoImage
           }
@@ -27,13 +44,13 @@ const MovieInfo = ({ movie, directors }) => {
           alt="movie-thumb"
         />
         <Text>
-          <h1>{movie && movie.title}</h1>
+          <h1>{movie?.title}</h1>
           <h3>PLOT</h3>
-          <p>{movie && movie.overview}</p>
+          <p>{movie?.overview}</p>
           <div className="rating-directors">
             <div>
               <h3>RATING</h3>
-              <div className="score">{movie && movie.vote_average}</div>
+              <div className="score">{movie?.vote_average}</div>
             </div>
             <div className="director">
               <h3>Director{directors.length > 1 ? "s" : ""}</h3>
@@ -44,7 +61,7 @@ const MovieInfo = ({ movie, directors }) => {
           </div>
           {isLoggedIn ? (
             <FavoriteButton
-              favoriteStatus={favorite}
+              favoriteStatus={isFavorite}
               callback={toggleFavorite}
             />
           ) : null}

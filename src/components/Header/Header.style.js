@@ -4,11 +4,6 @@ export const Wrapper = styled.div`
   background: var(--darkGray);
   padding: 0 20px;
 
-  .test {
-    font-size: 30px;
-    color: var(--white);
-  }
-
   a {
     margin-right: 20px;
     text-decoration: none;
@@ -33,7 +28,7 @@ export const Content = styled.div`
 `;
 
 export const LogoImg = styled.img`
-  width: 120px;
+  width: 200px;
   padding: 12px;
   cursor: pointer;
   @media screen and (max-width: 500px) {
@@ -44,10 +39,21 @@ export const LogoImg = styled.img`
 export const Column = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 400px;
+  align-items: center;
+  max-width: 700px;
 
   @media screen and (max-width: 500px) {
     display: block;
     max-width: 150px;
   }
+`;
+
+export const SessionName = styled.div`
+  color: var(--lightGray);
+  font-size: 12px;
+  width: 100%;
+  margin-right: 20px;
+  border: 1px solid var(--lightGray);
+  border-radius: 40px;
+  padding: 5px 10px;
 `;

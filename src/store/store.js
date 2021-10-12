@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import initReducer from "./initSlice";
-import moviesReducer from "./moviesSlice";
-import movieReducer from "./movieSlice";
-import authReducer from "./authSlice";
-import authMiddleware from "./authMiddleware";
+import initReducer from "./Slices/initSlice";
+import moviesReducer from "./Slices/moviesSlice";
+import movieReducer from "./Slices/movieSlice";
+import authReducer from "./Slices/authSlice";
+import authMiddleware from "./Middleware/authMiddleware";
+import searchReducer from "./Slices/searchSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     movies: moviesReducer,
     movie: movieReducer,
     auth: authReducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),

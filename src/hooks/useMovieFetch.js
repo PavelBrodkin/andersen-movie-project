@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchMovie } from "../store/movieSlice";
+import { fetchMovie } from "../store/Slices/movieSlice";
 
 const useMovieFetch = (movieId) => {
   const dispatch = useDispatch();
@@ -9,7 +9,6 @@ const useMovieFetch = (movieId) => {
   );
 
   useEffect(() => {
-    console.log("Fetching One Movie");
     dispatch(fetchMovie(movieId));
   }, [dispatch, movieId]);
 
